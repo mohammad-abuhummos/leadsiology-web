@@ -998,8 +998,8 @@ export default function Home() {
                 </div>
 
                 {/* {index < 3 && (
-                   <div className="hidden lg:block absolute left-8 top-20 w-0.5 h-32 bg-blue-200" />
-                 )} */}
+                  <div className="hidden lg:block absolute left-8 top-20 w-0.5 h-32 bg-blue-200" />
+                )} */}
               </div>
             ))}
           </div>
@@ -1149,7 +1149,7 @@ export default function Home() {
       </section>
 
       {/* Pricing Section */}
-      {/* <section className="py-24 bg-white">
+      <section className="py-24 bg-white">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 bg-blue-50 border border-blue-200 text-blue-700 px-6 py-3 rounded-full text-sm font-semibold mb-8">
@@ -1285,7 +1285,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section> */}
+      </section>
 
       {/* FAQ Section */}
       <section className="py-24 bg-gray-50">
@@ -1382,7 +1382,7 @@ export default function Home() {
               About Leadsiology
             </div>
             <h2 className="text-4xl font-bold text-gray-900 mb-6">
-              Transforming Home Improvement Businesses Since 2025
+              Transforming Home Improvement Businesses Since 2018
             </h2>
             <p className="text-xl text-gray-600 max-w-4xl mx-auto">
               We started with a simple mission: help skilled contractors focus
@@ -1398,7 +1398,7 @@ export default function Home() {
               </h3>
               <div className="space-y-6 text-lg text-gray-600 leading-relaxed">
                 <p>
-                  Founded in 2025 by a team of digital marketing veterans and
+                  Founded in 2018 by a team of digital marketing veterans and
                   former contractors, Leadsiology was born from the frustration
                   of seeing talented professionals struggle to grow their
                   businesses due to inconsistent lead flow.
@@ -1476,7 +1476,7 @@ export default function Home() {
           <div className="grid md:grid-cols-4 gap-8 mb-16">
             {[
               {
-                number: "2025",
+                number: "2018",
                 label: "Company Founded",
                 description: "Years of experience",
               },
@@ -1592,7 +1592,7 @@ export default function Home() {
               </h3>
 
               <div className="space-y-6 mb-8">
-                {/* <div className="flex items-center gap-4">
+                <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
                     <PhoneIcon className="w-6 h-6 text-blue-600" />
                   </div>
@@ -1600,7 +1600,7 @@ export default function Home() {
                     <div className="font-semibold text-gray-900">Phone</div>
                     <div className="text-blue-600">(555) 123-LEAD</div>
                   </div>
-                </div> */}
+                </div>
 
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">

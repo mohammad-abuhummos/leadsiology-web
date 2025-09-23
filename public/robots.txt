@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Disallow admin or private areas (add if you have any)
+# Disallow: /admin/
+# Disallow: /private/
+
+# Sitemap location
+Sitemap: https://leadsiology.com/sitemap.xml
+
+# Crawl delay (optional)
+Crawl-delay: 1
