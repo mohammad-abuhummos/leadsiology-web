@@ -1092,7 +1092,7 @@ export default function Home() {
                 </div>
 
                 <p className="text-gray-600 leading-relaxed mb-6 italic">
-                  "{story.testimonial}"
+                  &ldquo;{story.testimonial}&rdquo;
                 </p>
 
                 <div className="flex items-center gap-1 mb-2">
