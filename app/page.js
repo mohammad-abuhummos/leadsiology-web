@@ -40,7 +40,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [selectedService, setSelectedService] = useState(null);
   const heroRef = useRef();
   const featuresRef = useRef();
 
@@ -301,141 +300,6 @@ export default function Home() {
 
   return (
     <div className="bg-white text-black">
-      {/* Service Detail Modal */}
-      {selectedService && (
-        <div className="fixed inset-0 z-50 overflow-y-auto">
-          <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <div
-              className="fixed inset-0 transition-opacity"
-              onClick={() => setSelectedService(null)}
-            >
-              <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
-            </div>
-
-            <div className="inline-block align-bottom bg-white rounded-3xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl sm:w-full">
-              {(() => {
-                const service = services.find((s) => s.id === selectedService);
-                if (!service) return null;
-
-                return (
-                  <div className="bg-white">
-                    {/* Header */}
-                    <div className="relative">
-                      <Image
-                        src={service.image}
-                        alt={service.name}
-                        width={800}
-                        height={300}
-                        className="w-full h-64 object-cover"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                      <button
-                        onClick={() => setSelectedService(null)}
-                        className="absolute top-4 right-4 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center"
-                      >
-                        <XMarkIcon className="w-6 h-6 text-gray-600" />
-                      </button>
-                      <div className="absolute bottom-6 left-6 text-white">
-                        <h2 className="text-3xl font-bold mb-2">
-                          {service.name}
-                        </h2>
-                        <p className="text-lg opacity-90">
-                          {service.description}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Content */}
-                    <div className="p-8">
-                      {/* Key Metrics */}
-                      <div className="grid grid-cols-3 gap-6 mb-8 p-6 bg-blue-50 rounded-2xl">
-                        <div className="text-center">
-                          <div className="text-2xl font-bold text-blue-600">
-                            {service.details.averageValue}
-                          </div>
-                          <div className="text-sm text-gray-600">
-                            Average Project Value
-                          </div>
-                        </div>
-                        <div className="text-center">
-                          <div className="text-2xl font-bold text-blue-600">
-                            {service.details.conversionRate}
-                          </div>
-                          <div className="text-sm text-gray-600">
-                            Conversion Rate
-                          </div>
-                        </div>
-                        <div className="text-center">
-                          <div className="text-2xl font-bold text-blue-600">
-                            {service.details.demandLevel}
-                          </div>
-                          <div className="text-sm text-gray-600">
-                            Market Demand
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="grid md:grid-cols-2 gap-8">
-                        {/* Service Features */}
-                        <div>
-                          <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                            <SparklesIcon className="w-5 h-5 text-blue-600" />
-                            Service Features
-                          </h3>
-                          <ul className="space-y-3">
-                            {service.details.features.map((feature, idx) => (
-                              <li key={idx} className="flex items-start gap-3">
-                                <CheckCircleIcon className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
-                                <span className="text-gray-700">{feature}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-
-                        {/* Target Customers */}
-                        <div>
-                          <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                            <UserGroupIcon className="w-5 h-5 text-blue-600" />
-                            Target Customers
-                          </h3>
-                          <ul className="space-y-3">
-                            {service.details.targetCustomers.map(
-                              (customer, idx) => (
-                                <li
-                                  key={idx}
-                                  className="flex items-start gap-3"
-                                >
-                                  <ArrowRightIcon className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
-                                  <span className="text-gray-700">
-                                    {customer}
-                                  </span>
-                                </li>
-                              )
-                            )}
-                          </ul>
-                        </div>
-                      </div>
-
-                      {/* CTA */}
-                      <div className="mt-8 pt-6 border-t border-gray-200 text-center">
-                        <a
-                          href="#contact"
-                          onClick={() => setSelectedService(null)}
-                          className="inline-flex items-center gap-2 bg-blue-600 text-white px-8 py-4 rounded-2xl font-semibold hover:bg-blue-700 transition-colors"
-                        >
-                          <BoltIcon className="w-5 h-5" />
-                          Start Receiving {service.name} Leads
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })()}
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* Navigation */}
       <header className="absolute inset-x-0 top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100">
         <nav className="flex items-center justify-between p-6 lg:px-8">
@@ -591,10 +455,10 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.slice(0, 6).map((service, index) => (
-              <div
+              <a
                 key={service.id}
-                className="service-card group relative cursor-pointer"
-                onClick={() => setSelectedService(service.id)}
+                href={`/services/${service.id}`}
+                className="service-card group relative"
               >
                 <div className="bg-white rounded-3xl shadow-xl ring-1 ring-gray-100 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
                   <div className="aspect-[4/3] relative overflow-hidden">
@@ -627,7 +491,7 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </a>
             ))}
           </div>
         </div>
@@ -1840,38 +1704,33 @@ export default function Home() {
               <h4 className="text-white font-bold mb-6">Company</h4>
               <ul className="space-y-3 text-gray-300">
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <a href="/about" className="hover:text-white transition-colors">
                     About Us
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <a href="#process" className="hover:text-white transition-colors">
                     How It Works
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
-                    Success Stories
+                  <a href="#features" className="hover:text-white transition-colors">
+                    Why Choose Us
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
-                    Pricing
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition-colors">
-                    FAQ
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition-colors">
-                    Support
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <a href="/contact" className="hover:text-white transition-colors">
                     Contact
+                  </a>
+                </li>
+                <li>
+                  <a href="/privacy-policy" className="hover:text-white transition-colors">
+                    Privacy Policy
+                  </a>
+                </li>
+                <li>
+                  <a href="/terms-conditions" className="hover:text-white transition-colors">
+                    Terms & Conditions
                   </a>
                 </li>
               </ul>
@@ -1885,14 +1744,11 @@ export default function Home() {
                 for home improvement contractors.
               </p>
               <div className="flex items-center gap-6 text-gray-400 text-sm">
-                <a href="#" className="hover:text-white transition-colors">
+                <a href="/privacy-policy" className="hover:text-white transition-colors">
                   Privacy Policy
                 </a>
-                <a href="#" className="hover:text-white transition-colors">
-                  Terms of Service
-                </a>
-                <a href="#" className="hover:text-white transition-colors">
-                  Cookie Policy
+                <a href="/terms-conditions" className="hover:text-white transition-colors">
+                  Terms & Conditions
                 </a>
               </div>
             </div>
