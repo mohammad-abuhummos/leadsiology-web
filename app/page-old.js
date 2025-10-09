@@ -1225,7 +1225,7 @@ export default function Home() {
 
             <div className="border-t border-gray-700/50 pt-8">
               <p className="text-gray-400 text-lg">
-                © 2024 Leadsiology. Premium lead generation for home improvement
+                © {new Date().getFullYear()} Leadsiology. Premium lead generation for home improvement
                 contractors.
               </p>
               <p className="text-gray-500 mt-2">

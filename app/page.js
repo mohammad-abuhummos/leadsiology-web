@@ -43,6 +43,69 @@ export default function Home() {
   const heroRef = useRef();
   const featuresRef = useRef();
 
+  // Contact form state and handlers
+  const [formData, setFormData] = useState({
+    name: "",
+    company: "",
+    email: "",
+    phone: "",
+    service: "",
+    budget: "",
+    area: "",
+    message: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null); // 'success' | 'error' | null
+  const [submitMessage, setSubmitMessage] = useState("");
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.name || !formData.email || !formData.message) {
+      setSubmitStatus("error");
+      setSubmitMessage("Please fill in your name, email, and message.");
+      return;
+    }
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+    setSubmitMessage("");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const result = await res.json();
+      if (!res.ok) throw new Error(result?.error || "Failed to send message");
+      setSubmitStatus("success");
+      setSubmitMessage(
+        "Thank you! Your message has been sent successfully. We'll get back to you soon."
+      );
+      setFormData({
+        name: "",
+        company: "",
+        email: "",
+        phone: "",
+        service: "",
+        budget: "",
+        area: "",
+        message: "",
+      });
+    } catch (err) {
+      setSubmitStatus("error");
+      setSubmitMessage(
+        err?.message || "Network error. Please check your connection and try again."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   // Comprehensive service details
   const services = [
     {
@@ -179,9 +242,9 @@ export default function Home() {
     },
     {
       id: "windows",
-      name: "Windows & Doors",
+      name: "Windows",
       image: "/assets/windows.webp",
-      description: "Energy-efficient window and door replacement leads",
+      description: "Energy-efficient window replacement leads",
       icon: BuildingOfficeIcon,
       details: {
         averageValue: "$12,000",
@@ -189,9 +252,6 @@ export default function Home() {
         demandLevel: "Steady",
         features: [
           "Energy-efficient window replacements",
-          "Entry door installations",
-          "Patio door upgrades",
-          "Storm door installations",
           "Custom window solutions",
           "Energy rebate assistance",
         ],
@@ -204,7 +264,6 @@ export default function Home() {
         leadTypes: [
           "Full home window replacement",
           "Single window replacements",
-          "Door installations",
           "Energy efficiency upgrades",
         ],
       },
@@ -1456,15 +1515,15 @@ export default function Home() {
               </h3>
 
               <div className="space-y-6 mb-8">
-                {/* <div className="flex items-center gap-4">
+                <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
                     <PhoneIcon className="w-6 h-6 text-blue-600" />
                   </div>
                   <div>
                     <div className="font-semibold text-gray-900">Phone</div>
-                    <div className="text-blue-600">(555) 123-LEAD</div>
+                    <a href="tel:+18108670991" className="text-blue-600 hover:underline">+1 (810) 867-0991</a>
                   </div>
-                </div> */}
+                </div>
 
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
@@ -1523,7 +1582,7 @@ export default function Home() {
                 lead generation strategy for you.
               </p>
 
-              <form className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-semibold text-gray-900 mb-2">
@@ -1531,8 +1590,12 @@ export default function Home() {
                     </label>
                     <input
                       type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
                       className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                       placeholder="John Smith"
+                      required
                     />
                   </div>
                   <div>
@@ -1541,6 +1604,9 @@ export default function Home() {
                     </label>
                     <input
                       type="text"
+                      name="company"
+                      value={formData.company}
+                      onChange={handleInputChange}
                       className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                       placeholder="ABC Home Improvements"
                     />
@@ -1554,8 +1620,12 @@ export default function Home() {
                     </label>
                     <input
                       type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
                       className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                       placeholder="john@abchome.com"
+                      required
                     />
                   </div>
                   <div>
@@ -1564,6 +1634,9 @@ export default function Home() {
                     </label>
                     <input
                       type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleInputChange}
                       className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                       placeholder="(555) 123-4567"
                     />
@@ -1575,13 +1648,18 @@ export default function Home() {
                     <label className="block text-sm font-semibold text-gray-900 mb-2">
                       Primary Service
                     </label>
-                    <select className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    <select
+                      name="service"
+                      value={formData.service}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    >
                       <option value="">Select your primary service</option>
                       <option value="bathroom">Bathroom Remodeling</option>
                       <option value="roofing">Roofing</option>
                       <option value="hvac">HVAC</option>
                       <option value="solar">Solar Installation</option>
-                      <option value="windows">Windows & Doors</option>
+                      <option value="windows">Windows</option>
                       <option value="other">Other</option>
                     </select>
                   </div>
@@ -1589,7 +1667,12 @@ export default function Home() {
                     <label className="block text-sm font-semibold text-gray-900 mb-2">
                       Monthly Budget
                     </label>
-                    <select className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    <select
+                      name="budget"
+                      value={formData.budget}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    >
                       <option value="">Select budget range</option>
                       <option value="1000-2500">$1,000 - $2,500</option>
                       <option value="2500-5000">$2,500 - $5,000</option>
@@ -1605,6 +1688,9 @@ export default function Home() {
                   </label>
                   <input
                     type="text"
+                    name="area"
+                    value={formData.area}
+                    onChange={handleInputChange}
                     className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     placeholder="e.g., Atlanta, GA; Birmingham, AL; Nashville, TN"
                   />
@@ -1616,16 +1702,58 @@ export default function Home() {
                   </label>
                   <textarea
                     rows={4}
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
                     className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     placeholder="Tell us about your experience, team size, current marketing challenges, and goals..."
+                    required
                   />
                 </div>
 
+                {submitStatus && (
+                  <div
+                    className={`p-4 rounded-xl flex items-center gap-3 ${
+                      submitStatus === "success"
+                        ? "bg-green-50 border border-green-200 text-green-800"
+                        : "bg-red-50 border border-red-200 text-red-800"
+                    }`}
+                  >
+                    <CheckCircleIcon
+                      className={`w-5 h-5 ${
+                        submitStatus === "success" ? "text-green-600" : "text-red-600"
+                      }`}
+                    />
+                    <span className="font-medium">{submitMessage}</span>
+                    {submitStatus === "error" && (
+                      <button
+                        type="button"
+                        onClick={() => setSubmitStatus(null)}
+                        className="ml-auto text-red-600 hover:text-red-800"
+                      >
+                        <XMarkIcon className="w-4 h-4" />
+                      </button>
+                    )}
+                  </div>
+                )}
+
                 <button
                   type="submit"
-                  className="w-full bg-blue-600 text-white px-8 py-4 rounded-2xl text-lg font-semibold hover:bg-blue-700 transition-colors shadow-xl hover:shadow-2xl"
+                  disabled={isSubmitting}
+                  className={`w-full px-8 py-4 rounded-2xl text-lg font-semibold transition-all duration-300 shadow-xl hover:shadow-2xl ${
+                    isSubmitting
+                      ? "bg-gray-400 text-gray-600 cursor-not-allowed"
+                      : "bg-blue-600 text-white hover:bg-blue-700 transform hover:-translate-y-0.5"
+                  }`}
                 >
-                  Get My Free Lead Generation Strategy
+                  {isSubmitting ? (
+                    <span className="flex items-center justify-center gap-2">
+                      <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                      Sending Message...
+                    </span>
+                  ) : (
+                    "Get My Free Lead Generation Strategy"
+                  )}
                 </button>
 
                 <p className="text-sm text-gray-500 text-center">
@@ -1694,7 +1822,7 @@ export default function Home() {
                 </li>
                 <li>
                   <a href="#" className="hover:text-white transition-colors">
-                    Windows & Doors Leads
+                    Windows Leads
                   </a>
                 </li>
               </ul>
@@ -1740,7 +1868,7 @@ export default function Home() {
           <div className="border-t border-gray-800 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <p className="text-gray-400">
-                © 2024 Leadsiology. All rights reserved. Premium lead generation
+                © {new Date().getFullYear()} Leadsiology. All rights reserved. Premium lead generation
                 for home improvement contractors.
               </p>
               <div className="flex items-center gap-6 text-gray-400 text-sm">

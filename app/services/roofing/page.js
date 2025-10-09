@@ -399,7 +399,7 @@ export default function RoofingServices() {
           <div className="border-t border-gray-800 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <p className="text-gray-400">
-                © 2024 Leadsiology. All rights reserved. Premium lead generation
+                © {new Date().getFullYear()} Leadsiology. All rights reserved. Premium lead generation
                 for home improvement contractors.
               </p>
               <div className="flex items-center gap-6 text-gray-400 text-sm">
