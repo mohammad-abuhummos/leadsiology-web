@@ -1007,7 +1007,7 @@ export default function Home() {
       </section>
 
       {/* Success Stories Section */}
-      <section className="py-24 bg-gray-50">
+      <section id="success-stories" className="py-24 bg-gray-50">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 bg-blue-50 border border-blue-200 text-blue-700 px-6 py-3 rounded-full text-sm font-semibold mb-8">
@@ -1288,7 +1288,7 @@ export default function Home() {
       </section> */}
 
       {/* FAQ Section */}
-      <section className="py-24 bg-gray-50">
+      <section id="faq" className="py-24 bg-gray-50">
         <div className="mx-auto max-w-4xl px-6 lg:px-8">
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 bg-blue-50 border border-blue-200 text-blue-700 px-6 py-3 rounded-full text-sm font-semibold mb-8">
@@ -1374,7 +1374,7 @@ export default function Home() {
       </section>
 
       {/* About Us Section */}
-      <section className="py-24 bg-white">
+      <section id="about" className="py-24 bg-white">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="text-center mb-20">
             <div className="inline-flex items-center gap-2 bg-blue-50 border border-blue-200 text-blue-700 px-6 py-3 rounded-full text-sm font-semibold mb-8">
@@ -1840,37 +1840,52 @@ export default function Home() {
               <h4 className="text-white font-bold mb-6">Company</h4>
               <ul className="space-y-3 text-gray-300">
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <a href="#about" className="hover:text-white transition-colors">
                     About Us
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <a
+                    href="#process"
+                    className="hover:text-white transition-colors"
+                  >
                     How It Works
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <a
+                    href="#success-stories"
+                    className="hover:text-white transition-colors"
+                  >
                     Success Stories
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <a
+                    href="#services"
+                    className="hover:text-white transition-colors"
+                  >
                     Pricing
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <a href="#faq" className="hover:text-white transition-colors">
                     FAQ
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <a
+                    href="#contact"
+                    className="hover:text-white transition-colors"
+                  >
                     Support
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <a
+                    href="#contact"
+                    className="hover:text-white transition-colors"
+                  >
                     Contact
                   </a>
                 </li>
@@ -1881,17 +1896,26 @@ export default function Home() {
           <div className="border-t border-gray-800 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <p className="text-gray-400">
-                © 2024 Leadsiology. All rights reserved. Premium lead generation
+                © 2026 Leadsiology. All rights reserved. Premium lead generation
                 for home improvement contractors.
               </p>
               <div className="flex items-center gap-6 text-gray-400 text-sm">
-                <a href="#" className="hover:text-white transition-colors">
+                <a
+                  href="/privacy-policy"
+                  className="hover:text-white transition-colors"
+                >
                   Privacy Policy
                 </a>
-                <a href="#" className="hover:text-white transition-colors">
+                <a
+                  href="/terms-of-service"
+                  className="hover:text-white transition-colors"
+                >
                   Terms of Service
                 </a>
-                <a href="#" className="hover:text-white transition-colors">
+                <a
+                  href="/cookie-policy"
+                  className="hover:text-white transition-colors"
+                >
                   Cookie Policy
                 </a>
               </div>
